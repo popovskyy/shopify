@@ -1,0 +1,236 @@
+{{ 'section-swiper-gallery.css' | asset_url | stylesheet_tag }}
+
+<div class="swiper-gallery-section"
+     data-section-id="{{ section.id }}"
+     data-desktop-slides-per-view="{{ section.settings.slides_per_view_desktop }}"
+     data-desktop-pagination="{{ section.settings.pagination_desktop }}"
+     data-desktop-navigation="{{ section.settings.navigation_desktop }}"
+     data-desktop-space-between="{{ section.settings.space_between_desktop }}"
+
+     data-tablet-slides-per-view="{{ section.settings.slides_per_view_tablet }}"
+     data-tablet-pagination="{{ section.settings.pagination_tablet }}"
+     data-tablet-navigation="{{ section.settings.navigation_tablet }}"
+     data-tablet-space-between="{{ section.settings.space_between_tablet }}"
+
+     data-mobile-slides-per-view="{{ section.settings.slides_per_view_mobile }}"
+     data-mobile-pagination="{{ section.settings.pagination_mobile }}"
+     data-mobile-navigation="{{ section.settings.navigation_mobile }}"
+     data-mobile-space-between="{{ section.settings.space_between_mobile }}"
+>
+    {% if section.settings.heading != blank %}
+        <h2 class="swiper-gallery-heading" style="text-align: {{ section.settings.heading_alignment }};">
+            {{ section.settings.heading | escape }}
+        </h2>
+    {% endif %}
+
+    <div class="swiper mySwiper" style="
+    {% if section.settings.max_width > 0 %}
+            max-width: {{ section.settings.max_width }}px;
+            margin-left: auto;
+            margin-right: auto;
+    {% endif %}
+            ">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                {% if block.type == 'slide' %}
+                    <div class="swiper-slide">
+                        {% if block.settings.image != blank %}
+                            <img src="{{ block.settings.image | image_url: width: 1500 }}" alt="{{ block.settings.image.alt }}" loading="lazy">
+                        {% else %}
+                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"><span></span></div>
+        <div class="swiper-button-prev"><span></span></div>
+    </div>
+</div>
+
+<script src="{{ 'section-swiper-gallery.js' | asset_url }}" type="module"></script>
+
+{% schema %}
+{
+  "name": "Swiper Gallery",
+  "tag": "section",
+  "class": "section-swiper-gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Gallery Swiper"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 0,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum content width",
+      "info": "Set to 0 for full width. Applies to the Swiper container.",
+      "default": 1200
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "itm",
+      "label": "Slides per view (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "pagination_desktop",
+      "label": "Enable Pagination (Desktop)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_desktop",
+      "label": "Enable Navigation Arrows (Desktop)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "space_between_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Space Between Slides (Desktop)",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Tablet Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "itm",
+      "label": "Slides per view (Tablet)",
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "pagination_tablet",
+      "label": "Enable Pagination (Tablet)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_tablet",
+      "label": "Enable Navigation Arrows (Tablet)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "space_between_tablet",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Space Between Slides (Tablet)",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "itm",
+      "label": "Slides per view (Mobile)",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "pagination_mobile",
+      "label": "Enable Pagination (Mobile)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_mobile",
+      "label": "Enable Navigation Arrows (Mobile)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "space_between_mobile",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Space Between Slides (Mobile)",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Swiper Gallery",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ],
+  "locales": {
+    "en": {
+      "name": "Swiper Gallery"
+    },
+    "uk": {
+      "name": "Галерея Swiper"
+    }
+  }
+}
+{% endschema %}
