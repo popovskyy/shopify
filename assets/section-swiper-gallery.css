@@ -1,0 +1,84 @@
+.swiper-gallery-section {
+	padding: 40px 0;
+	margin-bottom: 20px;
+}
+
+.swiper-gallery-heading {
+	font-size: 2.5em;
+	font-weight: bold;
+	margin-bottom: 30px;
+	color: #333;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #f8f8f8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+}
+
+.mySwiper {
+	padding-bottom: 50px;
+}
+
+.mySwiper .swiper-pagination {
+	bottom: 15px;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	color: #000;
+	width: 44px;
+	height: 44px;
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	transition: background-color 0.3s ease;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.swiper-pagination-bullet {
+	background-color: #999;
+	opacity: 1;
+	transition: background-color 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: #007bff;
+}
+
+@media (max-width: 767px) {
+	.swiper-gallery-heading {
+		font-size: 1.8em;
+		margin-bottom: 20px;
+	}
+	.swiper-button-next,
+	.swiper-button-prev {
+		width: 36px;
+		height: 36px;
+	}
+	.swiper-button-next::after,
+	.swiper-button-prev::after {
+		font-size: 1em;
+	}
+}
